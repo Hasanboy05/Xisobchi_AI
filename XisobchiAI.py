@@ -27,12 +27,23 @@ DATA_FILE = "expenses.json"
 bot = telebot.TeleBot(TOKEN)
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-# ── MA'LUMOTLARNI SAQLASH ──────────────────────────────
+# ── MA'LUMOTLARNI SAQLASH (yangilangan tuzilma) ─────────
 def load_expenses():
     if os.path.exists(DATA_FILE):
         try:
             with open(DATA_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
+                data = json.load(f)
+                # Eski formatni yangilash (3 → 4 element)
+                for uid, items in data.items():
+                    new_items = []
+                    for it in items:
+                        if len(it) == 3:
+                            # [summa, nom, sana] -> [summa, nom, sana, None]
+                            new_items.append([it[0], it[1], it[2], None])
+                        else:
+                            new_items.append(it)
+                    data[uid] = new_items
+                return data
         except Exception:
             pass
     return {}
@@ -47,12 +58,16 @@ def get_user_expenses(uid):
     return all_expenses.get(str(uid), [])
 
 def add_user_expenses(uid, items):
+    """
+    items: [(amount, product, product_code), ...]
+    product_code ixtiyoriy (agar None bo'lsa, saqlanmaydi)
+    """
     key = str(uid)
     now = datetime.now().isoformat()
     if key not in all_expenses:
         all_expenses[key] = []
-    for amount, product in items:
-        all_expenses[key].append([amount, product, now])
+    for amount, product, code in items:
+        all_expenses[key].append([amount, product, now, code])
     save_expenses(all_expenses)
 
 def clear_user_expenses(uid):
@@ -102,9 +117,10 @@ def build_full_list(uid):
     if not rows:
         return "📭 Ro'yxat bo'sh"
     lines = []
-    for i, (a, p, _) in enumerate(rows, 1):
+    for i, (a, p, _, code) in enumerate(rows, 1):
         icon, _ = get_category(p)
-        lines.append(f"{i}. {icon} {clean_name(p)} — {format_amount(a)} so'm")
+        code_str = f" 🆔{code}" if code else ""
+        lines.append(f"{i}. {icon} {clean_name(p)}{code_str} — {format_amount(a)} so'm")
     total = sum(r[0] for r in rows)
     return (
         "<b>🧾 Barcha harajatlar:</b>\n"
@@ -136,13 +152,7 @@ def preprocess_image(path):
     img.save(path)
     return img
 
-# ── KORZINKA CHEK PARSERI ──────────────────────────────
-# Korzinka chekida mahsulotlar quyidagicha:
-#   Yog. Best 2.5 % 450ml          11990,00
-#   Ichimlik gazlangan Pepsi PET,
-#   1,75L                           13890,00
-# Ya'ni: ism bir yoki ikki qator, narx o'ng tomonda XX,XX yoki XX.XX
-
+# ── KORZINKA CHEK PARSERI (kod qo'shilgan) ──────────────
 SKIP_WORDS = [
     "sh.j", "qqs", "mxik", "mk ", " mk", "tovarni", "oldi-sotdi",
     "to'lov", "tolov", "jami", "uchun", "total", "nds",
@@ -154,18 +164,17 @@ SKIP_WORDS = [
     "jumladan", "loyalt", "loyal", "shu jum",
 ]
 
-# Narx pattern: 11990,00  yoki  11 990,00  yoki  11990.00
 PRICE_RE = re.compile(r"([\d][\d\s]{1,9}[,\.]\d{2})\s*$")
+CODE_RE  = re.compile(r"\b(\d{6,13})\b")   # 6 dan 13 gacha raqam (artikul/shtrix)
 
 def parse_korzinka(text):
     """
-    Korzinka chekidan mahsulot + narx juftlarini chiqaradi.
-    Ko'p qatorli nomlarni ham to'g'ri o'qiydi.
+    Qaytaradi: [(summa, mahsulot_nomi, mahsulot_kodi), ...]
     """
     results = []
     lines   = [l.strip() for l in text.split("\n")]
 
-    pending_name = ""   # ikki qatorli nom uchun
+    pending_name = ""
 
     for line in lines:
         if not line or len(line) < 3:
@@ -179,7 +188,6 @@ def parse_korzinka(text):
 
         m = PRICE_RE.search(line)
         if m:
-            # Narx topildi
             raw_price = m.group(1).replace(" ", "").replace(",", ".")
             try:
                 price = float(raw_price)
@@ -191,9 +199,16 @@ def parse_korzinka(text):
                 pending_name = ""
                 continue
 
-            # Nomni aniqlash: narxdan oldingi qism + pending
             name_part = line[:m.start()].strip()
             name_part = re.sub(r"[^\w\s\-\.\%/]", " ", name_part).strip()
+
+            # Mahsulot kodini ajratib olish
+            product_code = None
+            code_match = CODE_RE.search(name_part)
+            if code_match:
+                product_code = code_match.group(1)
+                # Kodni nomdan olib tashlaymiz
+                name_part = CODE_RE.sub("", name_part).strip()
 
             if pending_name:
                 full_name = (pending_name + " " + name_part).strip()
@@ -201,14 +216,11 @@ def parse_korzinka(text):
             else:
                 full_name = name_part
 
-            # Nom juda qisqa bo'lsa o'tkazib yubor
             if len(full_name) < 2:
                 continue
 
-            results.append((int(price), full_name))
+            results.append((int(price), full_name, product_code))
         else:
-            # Narx yo'q — keyingi qator uchun nom sifatida saqlash
-            # Agar sof harf/raqam qatori bo'lsa
             clean = re.sub(r"[^\w\s\-\.\%/]", " ", line).strip()
             if len(clean) > 2:
                 pending_name = clean
@@ -218,7 +230,7 @@ def parse_korzinka(text):
     return results
 
 def parse_simple_text(text):
-    """Oddiy matn: 'olma 15000' yoki '15000 non' formatini o'qiydi."""
+    """Matndan (qo'lda kiritilgan) kod qidirilmaydi."""
     results = []
     for line in text.strip().split("\n"):
         line = line.strip()
@@ -231,11 +243,10 @@ def parse_simple_text(text):
         if amount < 50:
             continue
         product = re.sub(r"[^\w\s]", "", re.sub(r"\d+", "", line)).strip() or "Noma'lum"
-        results.append((amount, product))
+        results.append((amount, product, None))
     return results
 
 def ocr_image(path, lang="uzb+rus+eng"):
-    """Rasmdan matn o'qish — bir necha PSM rejimini sinaydi."""
     best_results = []
     for psm in ["6", "4", "3"]:
         try:
@@ -248,7 +259,6 @@ def ocr_image(path, lang="uzb+rus+eng"):
                 best_results = r
         except Exception as e:
             print(f"[OCR psm={psm}] {e}")
-    # Hech narsa topilmasa oddiy parse
     if not best_results:
         try:
             text = pytesseract.image_to_string(Image.open(path), lang=lang)
@@ -258,7 +268,6 @@ def ocr_image(path, lang="uzb+rus+eng"):
     return best_results
 
 def process_pdf(pdf_path):
-    """PDF dan matn yoki rasm orqali mahsulotlarni chiqaradi."""
     if not PDF_SUPPORT:
         return []
     results = []
@@ -272,8 +281,7 @@ def process_pdf(pdf_path):
                     r = parse_simple_text(text)
                 results.extend(r)
             else:
-                # Skanlangan PDF — rasmga aylantirish
-                pix      = page.get_pixmap(matrix=fitz.Matrix(3, 3))  # 3x zoom
+                pix      = page.get_pixmap(matrix=fitz.Matrix(3, 3))
                 img_path = f"pdf_page_{i}.png"
                 pix.save(img_path)
                 preprocess_image(img_path)
@@ -286,18 +294,17 @@ def process_pdf(pdf_path):
     return results
 
 def process_png(file_path):
-    """PNG/JPG fayldan mahsulotlarni chiqaradi."""
     preprocess_image(file_path)
     return ocr_image(file_path)
 
-# ── GRAFIK ─────────────────────────────────────────────
+# ── GRAFIK (o'zgarmagan) ───────────────────────────────
 def generate_line_chart(uid, period="month"):
     rows = get_by_period(uid, days=30 if period == "month" else 7)
     if not rows:
         return None
 
     daily = defaultdict(int)
-    for amount, _, date_str in rows:
+    for amount, _, date_str, _ in rows:
         day = datetime.fromisoformat(date_str).date()
         daily[day] += amount
 
@@ -342,7 +349,7 @@ def generate_pie_chart(uid):
         return None
 
     cat_totals = defaultdict(int)
-    for amount, product, _ in rows:
+    for amount, product, _, _ in rows:
         icon, cat_name = get_category(product)
         cat_totals[f"{icon} {cat_name}"] += amount
 
@@ -375,7 +382,7 @@ def generate_pie_chart(uid):
     buf.seek(0)
     return buf
 
-# ── YORDAMCHI FUNKSIYALAR ──────────────────────────────
+# ── STATISTIKA FUNKSIYALARI ────────────────────────────
 def _send_stats(chat_id, uid):
     rows = get_user_expenses(uid)
     if not rows:
@@ -387,6 +394,12 @@ def _send_stats(chat_id, uid):
     mn     = min(rows, key=lambda x: x[0])
     week_t = sum(r[0] for r in get_by_period(uid, 7))
     mon_t  = sum(r[0] for r in get_by_period(uid, 30))
+    # Eng ko'p uchragan mahsulot?
+    product_counts = defaultdict(int)
+    for _, p, _, _ in rows:
+        product_counts[p] += 1
+    most_freq = max(product_counts.items(), key=lambda x: x[1]) if product_counts else ("-", 0)
+
     bot.send_message(
         chat_id,
         f"📈 <b>Statistika</b>\n\n"
@@ -396,7 +409,8 @@ def _send_stats(chat_id, uid):
         f"📅 Haftalik: <b>{format_amount(week_t)} so'm</b>\n"
         f"🗓️ Oylik: <b>{format_amount(mon_t)} so'm</b>\n\n"
         f"⬆️ Eng qimmat: <b>{clean_name(mx[1])}</b> — {format_amount(mx[0])} so'm\n"
-        f"⬇️ Eng arzon: <b>{clean_name(mn[1])}</b> — {format_amount(mn[0])} so'm",
+        f"⬇️ Eng arzon: <b>{clean_name(mn[1])}</b> — {format_amount(mn[0])} so'm\n"
+        f"🔁 Eng ko'p: <b>{clean_name(most_freq[0])}</b> ({most_freq[1]} marta)",
         parse_mode="HTML", reply_markup=get_main_markup(),
     )
 
@@ -419,9 +433,12 @@ def _send_cat_chart(chat_id, uid):
         bot.send_message(chat_id, "📭 Ma'lumot yo'q.", reply_markup=get_main_markup())
 
 def _send_added(chat_id, msg_id, uid, results):
-    added_total = sum(a for a, _ in results)
-    lines = [f"  • {get_category(p)[0]} {clean_name(p)} — {format_amount(a)} so'm"
-             for a, p in results]
+    added_total = sum(a for a, _, _ in results)
+    lines = []
+    for a, p, code in results:
+        icon, _ = get_category(p)
+        code_str = f" 🆔{code}" if code else ""
+        lines.append(f"  • {icon} {clean_name(p)}{code_str} — {format_amount(a)} so'm")
     bot.edit_message_text(
         f"✅ <b>{len(results)} ta mahsulot topildi!</b>\n"
         f"💰 Shu chekdan: <b>{format_amount(added_total)} so'm</b>\n\n"
@@ -437,7 +454,7 @@ def send_welcome(message):
     bot.send_message(
         message.chat.id,
         f"Salom, {clean_name(message.from_user.first_name)}! 👋\n\n"
-        "💰 <b>Harajat botiga xush kelibsiz!</b>\n\n"
+        "💰 <b>Harajat botiga xush kelibsiz! (versiya 2.0 – mahsulot kodlari bilan)</b>\n\n"
         "📌 <b>Qanday foydalanish:</b>\n"
         "• 📄 PDF chek yuboring — avtomatik o'qiladi\n"
         "• 🖼️ PNG/JPG chek rasmi yuboring — OCR o'qiydi\n"
@@ -496,9 +513,10 @@ def callback_query(call):
         data  = get_by_period(uid, days)
         if data:
             lines = []
-            for i, (a, p, _) in enumerate(data, 1):
+            for i, (a, p, _, code) in enumerate(data, 1):
                 icon, _ = get_category(p)
-                lines.append(f"{i}. {icon} {clean_name(p)} — {format_amount(a)} so'm")
+                code_str = f" 🆔{code}" if code else ""
+                lines.append(f"{i}. {icon} {clean_name(p)}{code_str} — {format_amount(a)} so'm")
             total = sum(r[0] for r in data)
             bot.send_message(
                 call.message.chat.id,
@@ -560,7 +578,7 @@ def handle_photo(message):
         results = process_png(path)
 
         if results:
-            add_user_expenses(uid, results)
+            add_user_expenses(uid, results)  # results: [(amount, product, code), ...]
             _send_added(message.chat.id, msg.message_id, uid, results)
         else:
             bot.edit_message_text(
@@ -578,7 +596,7 @@ def handle_photo(message):
         if os.path.exists(path):
             os.remove(path)
 
-# ── HUJJAT (document) HANDLERI — PDF va PNG ────────────
+# ── HUJJAT (document) HANDLERI ─────────────────────────
 @bot.message_handler(content_types=["document"])
 def handle_document(message):
     uid       = message.from_user.id
@@ -643,10 +661,10 @@ def add_expense(message):
     lines = [l.strip() for l in text.split("\n") if l.strip()]
 
     if len(lines) > 1:
-        results = parse_simple_text(text)
+        results = parse_simple_text(text)  # kod qidirmaydi
         if results:
             add_user_expenses(uid, results)
-            added_total = sum(a for a, _ in results)
+            added_total = sum(a for a, _, _ in results)
             bot.reply_to(
                 message,
                 f"✅ <b>{len(results)} ta harajat qo'shildi!</b>\n"
@@ -669,7 +687,7 @@ def add_expense(message):
 
     amount  = int(nums[0])
     product = re.sub(r"\s+", " ", re.sub(r"\d+", "", text)).strip() or "Noma'lum"
-    add_user_expenses(uid, [(amount, product)])
+    add_user_expenses(uid, [(amount, product, None)])
     icon, _ = get_category(product)
 
     bot.reply_to(
@@ -680,5 +698,5 @@ def add_expense(message):
     )
 
 # ── ISHGA TUSHIRISH ────────────────────────────────────
-print("Bot ishga tushdi ✅")
+print("Bot ishga tushdi ✅ (versiya 2.0 – mahsulot kodlari bilan)")
 bot.polling(none_stop=True, interval=0)
