@@ -582,6 +582,66 @@ def send_added(chat_id: int, msg_id: int, uid: int, results: list) -> None:
 
 
 # ════════════════════════════════════════════════════════
+# ADMIN YORDAMCHILARI
+# ════════════════════════════════════════════════════════
+
+def notify_admins(text: str, reply_markup=None) -> None:
+    """Barcha adminlarga xabar yuboradi."""
+    for admin_id in ADMIN_IDS:
+        try:
+            bot.send_message(admin_id, text, parse_mode="HTML",
+                             reply_markup=reply_markup)
+        except Exception:
+            pass
+
+def admin_panel_keyboard() -> types.InlineKeyboardMarkup:
+    kb = types.InlineKeyboardMarkup(row_width=2)
+    kb.add(
+        types.InlineKeyboardButton("👥 Barcha userlar",    callback_data="adm:users"),
+        types.InlineKeyboardButton("💎 Premium userlar",   callback_data="adm:premium"),
+        types.InlineKeyboardButton("📊 Statistika",        callback_data="adm:stats"),
+        types.InlineKeyboardButton("💳 To'lov so'rovlari", callback_data="adm:payments"),
+    )
+    return kb
+
+def quick_activate_keyboard(uid: int, tier: str) -> types.InlineKeyboardMarkup:
+    """Admin bildirishnomасидаги tez faollashtirish tugmasi."""
+    kb = types.InlineKeyboardMarkup(row_width=2)
+    label = TARIFF_META.get(tier, {}).get("label_uz", tier)
+    kb.add(
+        types.InlineKeyboardButton(f"✅ {label} faollashtir", callback_data=f"adm_act:{uid}:{tier}"),
+        types.InlineKeyboardButton("❌ Rad etish",            callback_data=f"adm_reject:{uid}"),
+    )
+    return kb
+
+def admin_overall_stats() -> str:
+    total     = len(_users)
+    registered = sum(1 for u in _users.values() if not u.get("_pending"))
+    premium   = sum(1 for uid_str, u in _users.items()
+                    if not u.get("_pending") and is_premium(int(uid_str)))
+    trial     = sum(1 for u in _users.values()
+                    if u.get("sub", {}).get("tier") == "trial")
+    free_cnt  = registered - premium
+
+    total_exp = sum(
+        sum(r[0] for r in exps)
+        for exps in _expenses.values()
+    )
+    return (
+        f"📊 <b>Umumiy statistika</b>\n\n"
+        f"👥 Jami foydalanuvchilar: <b>{registered}</b>\n"
+        f"💎 Premium: <b>{premium}</b>\n"
+        f"🎁 Trial: <b>{trial}</b>\n"
+        f"🆓 Bepul: <b>{free_cnt}</b>\n\n"
+        f"💰 Barcha xarajatlar jami: <b>{fmt(total_exp)} so'm</b>"
+    )
+
+
+# Kutilayotgan to'lov so'rovlari (in-memory)
+_pending_payments: dict[int, str] = {}  # {uid: tier}
+
+
+# ════════════════════════════════════════════════════════
 # ONBOARDING OQIMI
 # ════════════════════════════════════════════════════════
 
@@ -624,6 +684,14 @@ def handle_name_entered(message: types.Message) -> None:
         message.chat.id,
         tr(lang, "choose_tariff"),
         reply_markup=tariff_keyboard(uid),
+    )
+    # Adminlarga bildirishnoma
+    notify_admins(
+        f"👤 <b>Yangi foydalanuvchi!</b>\n\n"
+        f"Ism: <b>{clean(name)}</b>\n"
+        f"🆔 ID: <code>{uid}</code>\n"
+        f"🌐 Til: {lang.upper()}\n"
+        f"📅 Sana: {datetime.now().strftime('%d.%m.%Y %H:%M')}"
     )
 
 def handle_tariff_chosen(call: types.CallbackQuery, tariff: str) -> None:
@@ -670,13 +738,27 @@ def handle_tariff_chosen(call: types.CallbackQuery, tariff: str) -> None:
             call.message.chat.id, call.message.message_id,
             parse_mode="HTML",
         )
-        # Onboarding tugaydi, tarif to'lovdan keyin admin tomonidan faollashtiriladi
         USER_STATES[uid] = "main"
         bot.send_message(
             call.message.chat.id,
             f"{tr(lang, 'desc_free')}\n\n"
             "Shu orada bepul tarifdan foydalanishingiz mumkin.",
             parse_mode="HTML", reply_markup=main_keyboard(uid),
+        )
+        # Kutilayotgan to'lovga qo'shish
+        _pending_payments[uid] = tariff
+        # Adminlarga tez faollashtirish tugmasi bilan bildirishnoma
+        user = get_user(uid)
+        uname = f"@{call.from_user.username}" if call.from_user.username else "—"
+        notify_admins(
+            f"💳 <b>To'lov so'rovi!</b>\n\n"
+            f"👤 Ism: <b>{clean(user['name']) if user else '—'}</b>\n"
+            f"🆔 ID: <code>{uid}</code>\n"
+            f"📱 Username: {uname}\n"
+            f"🌐 Til: {lang.upper()}\n"
+            f"📦 Tarif: <b>{label}</b>\n"
+            f"📅 Sana: {datetime.now().strftime('%d.%m.%Y %H:%M')}",
+            reply_markup=quick_activate_keyboard(uid, tariff),
         )
 
 
@@ -771,10 +853,21 @@ def cmd_clear(message: types.Message) -> None:
     bot.send_message(message.chat.id, t(uid, "confirm_clear"),
                      reply_markup=confirm_keyboard(uid))
 
+# ── ADMIN IDs ────────────────────────────────────────────
+ADMIN_IDS = {7920968216, 5115387272}
+
+@bot.message_handler(commands=["admin"])
+def cmd_admin(message: types.Message) -> None:
+    if message.from_user.id not in ADMIN_IDS:
+        return
+    bot.send_message(
+        message.chat.id,
+        admin_overall_stats(),
+        parse_mode="HTML",
+        reply_markup=admin_panel_keyboard(),
+    )
+
 # ── Admin: tarifni qo'lda faollashtirish ─────────────────
-# /activate {uid} {tier}  — faqat admin foydalanadi
-ADMIN_IDS = {7920968216, 5115387272}  # <-- 2 ta admin Telegram ID sini qo'shing
-    # Misol: ali         xasanboy001   
 @bot.message_handler(commands=["activate"])
 def cmd_activate(message: types.Message) -> None:
     if message.from_user.id not in ADMIN_IDS:
@@ -815,6 +908,142 @@ def on_callback(call: types.CallbackQuery) -> None:
     uid = call.from_user.id
     bot.answer_callback_query(call.id)
     data = call.data
+
+    # ── Admin panel callbacklari ─────────────────────────
+    if uid in ADMIN_IDS and data.startswith("adm"):
+
+        if data.startswith("adm_act:"):
+            # adm_act:{target_uid}:{tier}
+            _, target_str, tier = data.split(":")
+            target_uid = int(target_str)
+            if tier not in TARIFF_META:
+                bot.answer_callback_query(call.id, "Noto'g'ri tarif!", show_alert=True)
+                return
+            expires = activate_subscription(target_uid, tier)
+            lang_u  = lang_of(target_uid)
+            label   = TARIFF_META[tier].get(f"label_{lang_u}", tier)
+            _pending_payments.pop(target_uid, None)
+            # Foydalanuvchiga xabar
+            try:
+                bot.send_message(
+                    target_uid,
+                    tr(lang_u, "sub_activated", label=label, expires=expires),
+                    parse_mode="HTML", reply_markup=main_keyboard(target_uid),
+                )
+                USER_STATES[target_uid] = "main"
+            except Exception:
+                pass
+            # Xabarni yangilash
+            user = get_user(target_uid)
+            uname_display = user["name"] if user else str(target_uid)
+            bot.edit_message_text(
+                f"✅ <b>Faollashtirildi!</b>\n\n"
+                f"👤 {clean(uname_display)}\n"
+                f"🆔 <code>{target_uid}</code>\n"
+                f"📦 {label}\n"
+                f"📅 {expires} gacha",
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML",
+            )
+            return
+
+        if data.startswith("adm_reject:"):
+            target_uid = int(data.split(":")[1])
+            _pending_payments.pop(target_uid, None)
+            bot.edit_message_text(
+                f"❌ To'lov rad etildi — ID: <code>{target_uid}</code>",
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML",
+            )
+            try:
+                lang_u = lang_of(target_uid)
+                bot.send_message(
+                    target_uid,
+                    "❌ To'lovingiz tasdiqlanmadi. Muammo bo'lsa admin bilan bog'laning.",
+                )
+            except Exception:
+                pass
+            return
+
+        if data == "adm:stats":
+            bot.edit_message_text(
+                admin_overall_stats(),
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML", reply_markup=admin_panel_keyboard(),
+            )
+            return
+
+        if data == "adm:users":
+            real_users = [(uid_str, u) for uid_str, u in _users.items()
+                          if not u.get("_pending")]
+            if not real_users:
+                bot.answer_callback_query(call.id, "Foydalanuvchilar yo'q.", show_alert=True)
+                return
+            lines = []
+            for uid_str, u in real_users[:30]:
+                tier = u.get("sub", {}).get("tier", "free")
+                icon = "💎" if is_premium(int(uid_str)) else "🆓"
+                lines.append(f"{icon} <b>{clean(u['name'])}</b> — <code>{uid_str}</code> [{tier}]")
+            text = f"👥 <b>Foydalanuvchilar ({len(real_users)} ta):</b>\n\n" + "\n".join(lines)
+            if len(real_users) > 30:
+                text += f"\n\n... va yana {len(real_users) - 30} ta"
+            kb = types.InlineKeyboardMarkup()
+            kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
+            bot.edit_message_text(text, call.message.chat.id, call.message.message_id,
+                                  parse_mode="HTML", reply_markup=kb)
+            return
+
+        if data == "adm:premium":
+            premium_users = [(uid_str, u) for uid_str, u in _users.items()
+                             if not u.get("_pending") and is_premium(int(uid_str))]
+            if not premium_users:
+                bot.answer_callback_query(call.id, "Premium foydalanuvchilar yo'q.", show_alert=True)
+                return
+            lines = []
+            for uid_str, u in premium_users:
+                tier    = u.get("sub", {}).get("tier", "—")
+                expires = sub_expires_str(int(uid_str))
+                lines.append(
+                    f"💎 <b>{clean(u['name'])}</b> — <code>{uid_str}</code>\n"
+                    f"   📦 {tier} | 📅 {expires}"
+                )
+            kb = types.InlineKeyboardMarkup()
+            kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
+            bot.edit_message_text(
+                f"💎 <b>Premium foydalanuvchilar ({len(premium_users)} ta):</b>\n\n"
+                + "\n\n".join(lines),
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML", reply_markup=kb,
+            )
+            return
+
+        if data == "adm:payments":
+            if not _pending_payments:
+                bot.answer_callback_query(call.id, "Kutilayotgan to'lov yo'q.", show_alert=True)
+                return
+            lines = []
+            for puid, ptier in _pending_payments.items():
+                u = get_user(puid)
+                label = TARIFF_META.get(ptier, {}).get("label_uz", ptier)
+                name  = clean(u["name"]) if u else str(puid)
+                lines.append(f"👤 <b>{name}</b> — <code>{puid}</code> → {label}")
+            kb = types.InlineKeyboardMarkup()
+            kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
+            bot.edit_message_text(
+                f"💳 <b>Kutilayotgan to'lovlar ({len(_pending_payments)} ta):</b>\n\n"
+                + "\n".join(lines),
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML", reply_markup=kb,
+            )
+            return
+
+        if data == "adm:back":
+            bot.edit_message_text(
+                admin_overall_stats(),
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML", reply_markup=admin_panel_keyboard(),
+            )
+            return
 
     # ── Onboarding: til tanlash ──────────────────────────
     if data.startswith("lang:"):
