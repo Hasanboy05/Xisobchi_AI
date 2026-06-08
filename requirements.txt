@@ -3,3 +3,4 @@ pillow
 pytesseract
 pymupdf
 matplotlib
+python-dotenv

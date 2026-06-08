@@ -1,3 +1,9 @@
 import os
-TOKEN = os.getenv("8904677991:AAGc7f2UyR5alJPy5mnfnBKDoo3vxz5xOgw")
-bot = telebot.TeleBot(TOKEN)
+from dotenv import load_dotenv
+
+load_dotenv()
+
+from XisobchiAI import bot
+
+if __name__ == "__main__":
+    bot.infinity_polling(logger_level=20)
