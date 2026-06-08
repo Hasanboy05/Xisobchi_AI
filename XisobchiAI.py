@@ -114,6 +114,8 @@ def t(uid: int, key: str, **kwargs) -> str:
 
 def is_premium(uid: int) -> bool:
     """Foydalanuvchi aktiv premium yoki trial tarifda ekanligini tekshiradi."""
+    if uid in ADMIN_IDS:
+        return True
     user = get_user(uid)
     if not user:
         return False
