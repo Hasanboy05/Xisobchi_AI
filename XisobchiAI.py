@@ -28,7 +28,7 @@ except ImportError:
     PDF_SUPPORT = False
 
 # ── SOZLAMALAR ──────────────────────────────────────────
-TOKEN       = os.getenv("TELEGRAM_TOKEN", "")
+TOKEN       = os.getenv("TELEGRAM_TOKEN", "8904677991:AAGc7f2UyR5alJPy5mnfnBKDoo3vxz5xOgw")
 DATA_FILE   = "expenses.json"
 USERS_FILE  = "users.json"
 FREE_LIMIT  = 100   # bepul tarifda max mahsulot soni
