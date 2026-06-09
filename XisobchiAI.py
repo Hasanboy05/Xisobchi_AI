@@ -21,6 +21,8 @@ from PIL import Image, ImageFilter, ImageEnhance  # Rasm ishlov berish (Pillow)
 import pytesseract      # Tesseract OCR — rasmdan matn ajratish
 import re               # Regulyar iboralar — matn parsing
 import os               # Fayl tizimi va muhit o'zgaruvchilari
+import platform         # OS aniqlanadi (Windows/Linux)
+import unicodedata      # Emoji stripping — matplotlib uchun
 import json             # JSON fayllarni o'qish/yozish
 import io               # Xotirada fayl bufer (grafik uchun)
 from datetime import datetime, timedelta  # Sana/vaqt hisobi
@@ -71,9 +73,16 @@ TARIFF_META = {
 # Bot obyektini yaratamiz. TOKEN bilan Telegram serveriga ulanamiz.
 bot = telebot.TeleBot(TOKEN)
 
-# Tesseract OCR dasturining Windows'dagi o'rnatish yo'li.
-# Linux/Mac'da odatda "tesseract" (yo'lsiz) yoziladi.
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+# Tesseract OCR yo'li:
+#   Windows → to'liq yo'l (odatda C:\Program Files\Tesseract-OCR\)
+#   Linux/Mac → "tesseract" (PATH'dan topiladi, o'rnatilgan bo'lsa)
+#   TESSERACT_CMD muhit o'zgaruvchisi bilan ham bekor qilish mumkin.
+_tesseract_default = (
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    if platform.system() == "Windows"
+    else "tesseract"
+)
+pytesseract.pytesseract.tesseract_cmd = os.getenv("TESSERACT_CMD", _tesseract_default)
 
 
 # ════════════════════════════════════════════════════════════════════
@@ -352,6 +361,14 @@ def get_by_period(uid: int, days: int | None) -> list:
 # ════════════════════════════════════════════════════════════════════
 #  YORDAMCHI FUNKSIYALAR
 # ════════════════════════════════════════════════════════════════════
+
+def strip_emoji(text: str) -> str:
+    """Matndagi emoji va maxsus belgilarni olib tashlaydi.
+    Matplotlib DejaVu Sans shriftida emoji yo'q — grafik labellarida ishlatiladi."""
+    return "".join(
+        c for c in text
+        if unicodedata.category(c) not in ("So", "Sm", "Sk", "Cs")
+    ).strip()
 
 def fmt(amount: int) -> str:
     """Sonni ko'rinishli formatga o'tkazadi: 1500000 → "1 500 000".
@@ -715,7 +732,7 @@ def generate_line_chart(uid: int, period: str = "month") -> io.BytesIO | None:
                     textcoords="offset points", ha="center", fontsize=7, color="#ffffff")
 
     label = "30 kunlik" if period == "month" else "7 kunlik"
-    ax.set_title(f"🛒 {label} xarajatlar", color="white", fontsize=13, pad=15)
+    ax.set_title(f"{label} xarajatlar", color="white", fontsize=13, pad=15)
     ax.set_xlabel("Sana", color="#aaaaaa")
     ax.set_ylabel("So'm", color="#aaaaaa")
     ax.tick_params(colors="white")
@@ -743,11 +760,12 @@ def generate_pie_chart(uid: int) -> io.BytesIO | None:
     if not rows:
         return None
 
-    # Kategoriyalar bo'yicha summa hisoblash
+    # Kategoriyalar bo'yicha summa hisoblash.
+    # Label uchun faqat matn (emoji yo'q) — DejaVu Sans ularni ko'rsata olmaydi.
     cat_totals: dict = defaultdict(int)
     for amount, product, _, _ in rows:
-        icon, cat_name = get_category(product)
-        cat_totals[f"{icon} {cat_name}"] += amount
+        _, cat_name = get_category(product)
+        cat_totals[cat_name] += amount
     labels = list(cat_totals)
     values = list(cat_totals.values())
 
@@ -765,7 +783,7 @@ def generate_pie_chart(uid: int) -> io.BytesIO | None:
     for at in autotexts:
         at.set_fontsize(9)
     ax.set_title(
-        f"🏷️ Kategoriyalar\nJami: {fmt(sum(values))} so'm",
+        f"Kategoriyalar\nJami: {fmt(sum(values))} so'm",
         color="white", fontsize=13, pad=20,
     )
 
@@ -873,6 +891,20 @@ def send_added(chat_id: int, msg_id: int, uid: int, results: list) -> None:
 
 # Admin Telegram IDlari. Bu IDlar premium cheklovsiz ishlaydi.
 ADMIN_IDS = {7920968216, 5115387272}
+
+def safe_edit(chat_id: int, msg_id: int, text: str, **kwargs) -> None:
+    """bot.edit_message_text ni xavfsiz chaqiradi.
+
+    Telegram 400 "message is not modified" xatosini e'tiborsiz qoldiradi —
+    bu xato admin "Orqaga" tugmasini ketma-ket bosganida yuzaga keladi
+    (xabar mazmuni o'zgarmagan bo'lsa Telegram API xato qaytaradi).
+    Boshqa xatolar odatdagidek ko'tariladi.
+    """
+    try:
+        bot.edit_message_text(text, chat_id, msg_id, **kwargs)
+    except Exception as e:
+        if "message is not modified" not in str(e):
+            raise
 
 def notify_admins(text: str, reply_markup=None) -> None:
     """Barcha adminlarga HTML-formatlangan xabar yuboradi.
@@ -1354,13 +1386,13 @@ def on_callback(call: types.CallbackQuery) -> None:
             # Admin xabarini yangilash — tasdiqlangan deb belgilash
             user          = get_user(target_uid)
             uname_display = user["name"] if user else str(target_uid)
-            bot.edit_message_text(
+            safe_edit(
+                call.message.chat.id, call.message.message_id,
                 f"✅ <b>Faollashtirildi!</b>\n\n"
                 f"👤 {clean(uname_display)}\n"
                 f"🆔 <code>{target_uid}</code>\n"
                 f"📦 {label}\n"
                 f"📅 {expires} gacha",
-                call.message.chat.id, call.message.message_id,
                 parse_mode="HTML",
             )
             return
@@ -1370,9 +1402,9 @@ def on_callback(call: types.CallbackQuery) -> None:
             target_uid = int(data.split(":")[1])
             _pending_payments.pop(target_uid, None)
             _save_pending()  # Diskdan o'chiramiz
-            bot.edit_message_text(
-                f"❌ To'lov rad etildi — ID: <code>{target_uid}</code>",
+            safe_edit(
                 call.message.chat.id, call.message.message_id,
+                f"❌ To'lov rad etildi — ID: <code>{target_uid}</code>",
                 parse_mode="HTML",
             )
             try:
@@ -1385,10 +1417,10 @@ def on_callback(call: types.CallbackQuery) -> None:
             return
 
         if data == "adm:stats":
-            # Statistikani yangilash
-            bot.edit_message_text(
-                admin_overall_stats(),
+            # Statistikani yangilash — xuddi shu raqamlar bo'lsa "not modified" xatosi bo'lishi mumkin
+            safe_edit(
                 call.message.chat.id, call.message.message_id,
+                admin_overall_stats(),
                 parse_mode="HTML", reply_markup=admin_panel_keyboard(),
             )
             return
@@ -1410,8 +1442,8 @@ def on_callback(call: types.CallbackQuery) -> None:
                 text += f"\n\n... va yana {len(real_users) - 30} ta"
             kb = types.InlineKeyboardMarkup()
             kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
-            bot.edit_message_text(text, call.message.chat.id, call.message.message_id,
-                                  parse_mode="HTML", reply_markup=kb)
+            safe_edit(call.message.chat.id, call.message.message_id, text,
+                      parse_mode="HTML", reply_markup=kb)
             return
 
         if data == "adm:premium":
@@ -1431,10 +1463,10 @@ def on_callback(call: types.CallbackQuery) -> None:
                 )
             kb = types.InlineKeyboardMarkup()
             kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
-            bot.edit_message_text(
+            safe_edit(
+                call.message.chat.id, call.message.message_id,
                 f"💎 <b>Premium foydalanuvchilar ({len(premium_users)} ta):</b>\n\n"
                 + "\n\n".join(lines),
-                call.message.chat.id, call.message.message_id,
                 parse_mode="HTML", reply_markup=kb,
             )
             return
@@ -1460,10 +1492,10 @@ def on_callback(call: types.CallbackQuery) -> None:
                     callback_data=f"adm_view:{puid}"
                 ))
             kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
-            bot.edit_message_text(
+            safe_edit(
+                call.message.chat.id, call.message.message_id,
                 f"💳 <b>Kutilayotgan to'lovlar ({len(_pending_payments)} ta):</b>\n\n"
                 + "\n\n".join(lines),
-                call.message.chat.id, call.message.message_id,
                 parse_mode="HTML", reply_markup=kb,
             )
             return
@@ -1485,11 +1517,12 @@ def on_callback(call: types.CallbackQuery) -> None:
             # Diagrammadagi "Tolovni tanlaydi — ID, ism, tarif, summa ko'radi" bosqichi
             kb = types.InlineKeyboardMarkup(row_width=2)
             kb.add(
-                types.InlineKeyboardButton(f"✅ Faollashtirish", callback_data=f"adm_act:{target_uid}:{tier}"),
-                types.InlineKeyboardButton("❌ Rad etish",       callback_data=f"adm_reject:{target_uid}"),
+                types.InlineKeyboardButton("✅ Faollashtirish", callback_data=f"adm_act:{target_uid}:{tier}"),
+                types.InlineKeyboardButton("❌ Rad etish",      callback_data=f"adm_reject:{target_uid}"),
             )
             kb.add(types.InlineKeyboardButton("⬅️ Ro'yxatga qaytish", callback_data="adm:payments"))
-            bot.edit_message_text(
+            safe_edit(
+                call.message.chat.id, call.message.message_id,
                 f"🔍 <b>To'lov detallari</b>\n\n"
                 f"👤 Ism: <b>{clean(name)}</b>\n"
                 f"🆔 ID: <code>{target_uid}</code>\n"
@@ -1498,16 +1531,15 @@ def on_callback(call: types.CallbackQuery) -> None:
                 f"📦 Tarif: <b>{label}</b>\n"
                 f"📅 So'rov sanasi: {date}\n\n"
                 f"⏳ Status: <b>Kutilmoqda</b>",
-                call.message.chat.id, call.message.message_id,
                 parse_mode="HTML", reply_markup=kb,
             )
             return
 
         if data == "adm:back":
-            # Admin bosh panelga qaytish
-            bot.edit_message_text(
-                admin_overall_stats(),
+            # Admin bosh panelga qaytish — "not modified" bo'lishi mumkin, safe_edit ishlatiladi
+            safe_edit(
                 call.message.chat.id, call.message.message_id,
+                admin_overall_stats(),
                 parse_mode="HTML", reply_markup=admin_panel_keyboard(),
             )
             return
@@ -1520,9 +1552,9 @@ def on_callback(call: types.CallbackQuery) -> None:
             # /lang buyrug'i orqali — faqat tilni yangilash, onboarding emas
             update_user(uid, lang=lang)
             USER_STATES[uid] = "main"
-            bot.edit_message_text(
-                f"✅ Til o'zgartirildi → {lang.upper()}",
+            safe_edit(
                 call.message.chat.id, call.message.message_id,
+                f"✅ Til o'zgartirildi → {lang.upper()}",
             )
         else:
             # Onboarding: til tanlash bosqichi
