@@ -1,0 +1,340 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="11H0_JUkGuiSILpT7cSk">
+    <mxGraphModel dx="3969" dy="2998" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="V0hyejzRxT1CNJizVZbM-18" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="V0hyejzRxT1CNJizVZbM-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="ingliz" vertex="1">
+          <mxGeometry height="30" width="96" x="354" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-13" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Uzbek Tili" vertex="1">
+          <mxGeometry height="30" width="96" x="240" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-19" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="rus" vertex="1">
+          <mxGeometry height="30" width="96" x="470" y="130" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-55" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.586;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" target="V0hyejzRxT1CNJizVZbM-54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-12" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Ismingizni&amp;nbsp; Kiriting&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="107" x="223" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-16" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="enter your name" vertex="1">
+          <mxGeometry height="30" width="100" x="350" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-17" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="введите свое имя" vertex="1">
+          <mxGeometry height="30" width="100" x="470" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-66" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-199.99999999999977" y="520" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-20" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="7 kun Free" vertex="1">
+          <mxGeometry height="50" width="140" x="-120" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-40" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-35">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="670" y="600" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="12 oy&amp;nbsp; 300 000 som" vertex="1">
+          <mxGeometry height="50" width="144" x="650" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-41" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="490" y="660" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-24" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="6 oy&amp;nbsp; 200 000 som" vertex="1">
+          <mxGeometry height="50" width="144" x="426" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-44" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;1.Asosiy funksiyalar: kunlik/haftalik/oylik statistika.&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;2.Cheklangan saqlash (masalan, 100 ta mahsulot).&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;Diagramma va jadval yo‘q, faqat oddiy ro‘yxat.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="250" x="-720" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-45" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Doim tekin" vertex="1">
+          <mxGeometry height="20" width="250" x="-720" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-46" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="1. Premium funksiyalarni 7 kun sinab ko‘rish.&lt;div&gt;&lt;br&gt;&lt;div&gt;2. Diagramma va jadval ko‘rinishida saqlash.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;3. OCR orqali chek rasmlarini o‘qish.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;4. Push bildirishnomalar (kunlik/haftalik hisobot)&lt;/div&gt;&lt;div&gt;.&lt;/div&gt;&lt;div&gt;1 usr ga 1 marta beriladi&amp;nbsp;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="290" x="-350" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-47" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&amp;nbsp;7 lun&amp;nbsp; free trial" vertex="1">
+          <mxGeometry height="30" width="290" x="-350" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-48" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;To‘liq statistika: kunlik, haftalik, oylik, yillik.&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Diagramma va grafik ko‘rinishida hisobot (matplotlib/plotly).&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Mahsulotlarni jadvalda saqlash va eksport qilish (CSV/Excel)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;OCR orqali chek rasmlarini o‘qish va avtomatik qo‘shish.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;&lt;font size=&quot;3&quot;&gt;Push bildirishnomalar.&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;Budjet limiti ogohlantirishlari.&lt;/font&gt;&lt;p&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;Kategoriya bo‘yicha tahlil (oziq-ovqat, transport, o‘yin-kulgi)&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;.&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;Avtomatik yillik hisobot PDF ko‘rinishida.&lt;/font&gt;&lt;/li&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="370" width="450" x="910" y="2110" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-49" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="6 oy&amp;nbsp; va 12 oy&amp;nbsp;imkoniyatlar." vertex="1">
+          <mxGeometry height="30" width="450" x="910" y="2080" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-63" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;endArrow=classic;endFill=1;" target="V0hyejzRxT1CNJizVZbM-62">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-64" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-65" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="V0hyejzRxT1CNJizVZbM-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-66" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="V0hyejzRxT1CNJizVZbM-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-89" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-84">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-54" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Tariflardan birini&amp;nbsp; tanlang&lt;/font&gt;" vertex="1">
+          <mxGeometry height="60" width="290" x="220" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-58" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.586;entryY=0.019;entryDx=0;entryDy=0;entryPerimeter=0;" target="V0hyejzRxT1CNJizVZbM-54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-60" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.589;entryY=0.047;entryDx=0;entryDy=0;entryPerimeter=0;" target="V0hyejzRxT1CNJizVZbM-54">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-68" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-62" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-45">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-595" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-62" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Free" vertex="1">
+          <mxGeometry height="50" width="140" x="-460" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-23" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="-Y6sIHi-L8FnR_DDZIPn-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-24" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-74" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="-Y6sIHi-L8FnR_DDZIPn-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-74" parent="1" style="shape=actor;whiteSpace=wrap;html=1;" value="START" vertex="1">
+          <mxGeometry height="130" width="120" x="620" y="-360" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-38" edge="1" parent="1" source="V0hyejzRxT1CNJizVZbM-84" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RVB-Xg5cPlWT1-r2NpkX-35">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-84" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="3 oy&amp;nbsp; 100 000 som" vertex="1">
+          <mxGeometry height="50" width="170" x="140" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-85" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="3 oy&amp;nbsp; &amp;nbsp; imkinoyatlari" vertex="1">
+          <mxGeometry height="30" width="380" x="-520" y="2140" as="geometry" />
+        </mxCell>
+        <mxCell id="V0hyejzRxT1CNJizVZbM-87" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;2. Diagramma va jadval ko‘rinishida saqlash&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;3. OCR orqali chek rasmlarini o‘qish.&lt;/span&gt;.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;5.Budjet limiti ogohlantirishlari.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;To‘liq statistika: kunlik, haftalik, oylik, yillik.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Diagramma va grafik ko‘rinishida hisobot (matplotlib/plotly)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Budjet limiti ogohlantirishlari.&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="380" x="-520" y="2170" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-8" edge="1" parent="1" source="-Y6sIHi-L8FnR_DDZIPn-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-10" edge="1" parent="1" source="-Y6sIHi-L8FnR_DDZIPn-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Foydalanuvchi&amp;nbsp;&amp;nbsp;" vertex="1">
+          <mxGeometry height="60" width="120" x="380" y="-75" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-5" edge="1" parent="1" source="-Y6sIHi-L8FnR_DDZIPn-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Admin" vertex="1">
+          <mxGeometry height="60" width="120" x="870" y="-75" as="geometry" />
+        </mxCell>
+        <mxCell id="-Y6sIHi-L8FnR_DDZIPn-9" edge="1" parent="1" source="-Y6sIHi-L8FnR_DDZIPn-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.623;entryY=-0.138;entryDx=0;entryDy=0;entryPerimeter=0;" target="V0hyejzRxT1CNJizVZbM-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-16" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-4" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Addmin&amp;nbsp; login&amp;nbsp; sahifasi&lt;br&gt;login&amp;nbsp; parolni&amp;nbsp; kiritadi&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="130" width="260" x="1230" y="-130" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-18" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-74">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1750" y="-380" />
+              <mxPoint x="680" y="-380" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-19" connectable="0" parent="RVB-Xg5cPlWT1-r2NpkX-18" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;xato&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="0.0854" y="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-7" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Parol&amp;nbsp; To&#39;grimi&amp;nbsp;&amp;nbsp;" vertex="1">
+          <mxGeometry height="130" width="160" x="1670" y="-260" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-23" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-73" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-64">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-75" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-71">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2100" y="-15" />
+              <mxPoint x="2100" y="645" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-76" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-67">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font size=&quot;3&quot;&gt;Admin&amp;nbsp; panalga&amp;nbsp; kiradi&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="90" width="260" x="1650" y="-60" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-20" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.386;entryY=-0.015;entryDx=0;entryDy=0;entryPerimeter=0;" target="RVB-Xg5cPlWT1-r2NpkX-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Tog&#39;ri&lt;/font&gt;" vertex="1">
+          <mxGeometry height="30" width="60" x="1680" y="-120" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-25" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-22" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Pending&amp;nbsp; &amp;nbsp;tolovlar&amp;nbsp; royhati&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;har&amp;nbsp; bir&amp;nbsp; tolov status = pedding&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="95" width="270" x="1650" y="115" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-27" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-24" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Tolovni&amp;nbsp; tanlaydi&amp;nbsp;&amp;nbsp;&lt;br&gt;ID , ism , tarif , summa koradi&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="260" x="1655" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-29" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-26" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Chekni&amp;nbsp; tekshiradi&amp;nbsp;&lt;br&gt;Screenshot /&amp;nbsp; API&amp;nbsp; malumotlar&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="280" x="1650" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-32" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-28" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;Tekshiriv&amp;nbsp;&amp;nbsp;&lt;br&gt;&lt;br&gt;&lt;/span&gt;" vertex="1">
+          <mxGeometry height="160" width="220" x="1675" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-33" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Status&amp;nbsp; actif&amp;nbsp; &amp;nbsp;&lt;br&gt;Malumotlar&amp;nbsp; bazasi&amp;nbsp; yangilanadi&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="110" width="280" x="1650" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-48" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fillColor=#60a917;strokeColor=#2D7600;" target="RVB-Xg5cPlWT1-r2NpkX-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-31" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;Bot&amp;nbsp; foydalanuvchiga&amp;nbsp; bildiradi&amp;nbsp;&lt;br&gt;Tarifingiz aktif&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="121" width="270" x="1660" y="1169" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-34" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="Tog&#39;ri&amp;nbsp;&amp;nbsp;" vertex="1">
+          <mxGeometry height="30" width="60" x="1790" y="860" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-42" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-36">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-35" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Bot&amp;nbsp; tolof&amp;nbsp; havolasini&amp;nbsp; beradi&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;&quot; size=&quot;3&quot;&gt;Paymi&amp;nbsp; ,&amp;nbsp; kilic&amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="360" x="310" y="670" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-36" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Foydalanuvchi&amp;nbsp; tolaydi&amp;nbsp;&amp;nbsp;&lt;br&gt;Status&amp;nbsp; = pending&amp;nbsp;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="120" width="350" x="315" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-44" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-47" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-37" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="RVB-Xg5cPlWT1-r2NpkX-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-37" parent="1" style="rounded=0;whiteSpace=wrap;html=1;align=center;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Bor&amp;nbsp; adminga&amp;nbsp; xabar&amp;nbsp; yuboradi&amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;ism ,&amp;nbsp; tarif&amp;nbsp; , summa&amp;nbsp; &amp;nbsp;. tolov&amp;nbsp; ID&amp;nbsp; &amp;nbsp;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="155" width="400" x="290" y="1050" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-43" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.522;entryY=-0.003;entryDx=0;entryDy=0;entryPerimeter=0;" target="RVB-Xg5cPlWT1-r2NpkX-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-50" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-46" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RVB-Xg5cPlWT1-r2NpkX-49" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-46" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Admin&amp;nbsp; tasdiqlshni&amp;nbsp; kutadu&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Status = pending&amp;nbsp;&amp;nbsp;&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="90" width="360" x="300" y="1270" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-61" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" target="RVB-Xg5cPlWT1-r2NpkX-53" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-49" parent="1" style="whiteSpace=wrap;html=1;rounded=0;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Aktif&lt;/font&gt;" vertex="1">
+          <mxGeometry height="85" width="440" x="260" y="1455" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-56" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-85">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-60" y="1940" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-57" connectable="0" parent="RVB-Xg5cPlWT1-r2NpkX-56" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;tolov &amp;lt; 200&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.3901" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-59" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="V0hyejzRxT1CNJizVZbM-49">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1180" y="2050" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-60" connectable="0" parent="RVB-Xg5cPlWT1-r2NpkX-59" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;tolov &amp;gt;= 200&lt;/font&gt;" vertex="1">
+          <mxGeometry relative="1" x="-0.4454" y="2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-53" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 36px;&quot;&gt;Tekshiruv&lt;/font&gt;" vertex="1">
+          <mxGeometry height="260" width="400" x="280" y="1640" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-62" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;fillColor=#e51400;strokeColor=#B20000;" target="RVB-Xg5cPlWT1-r2NpkX-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2020" y="760" />
+              <mxPoint x="2020" y="418" />
+              <mxPoint x="2018" y="418" />
+              <mxPoint x="2018" y="163" />
+            </Array>
+            <mxPoint x="1990" y="733.01" as="sourcePoint" />
+            <mxPoint x="2017.9700000000003" y="129.99999999999977" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-63" connectable="0" parent="RVB-Xg5cPlWT1-r2NpkX-62" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" value="Xato" vertex="1">
+          <mxGeometry relative="1" x="-0.8687" y="3" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-64" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;&lt;font style=&quot;font-size: 11px;&quot;&gt;1.Asosiy funksiyalar: kunlik/haftalik/oylik statistika.&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;2.Cheklangan saqlash (masalan, 100 ta mahsulot).&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;Diagramma va jadval yo‘q, faqat oddiy ro‘yxat.&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="120" width="250" x="2330" y="-360" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-65" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="Doim tekin" vertex="1">
+          <mxGeometry height="20" width="250" x="2330" y="-380" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-67" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="1. Premium funksiyalarni 7 kun sinab ko‘rish.&lt;div&gt;&lt;br&gt;&lt;div&gt;2. Diagramma va jadval ko‘rinishida saqlash.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;3. OCR orqali chek rasmlarini o‘qish.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;4. Push bildirishnomalar (kunlik/haftalik hisobot)&lt;/div&gt;&lt;div&gt;.&lt;/div&gt;&lt;div&gt;1 usr ga 1 marta beriladi&amp;nbsp;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="150" width="290" x="2330" y="-160" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-68" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&amp;nbsp;7 lun&amp;nbsp; free trial" vertex="1">
+          <mxGeometry height="30" width="290" x="2330" y="-190" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-69" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="3 oy&amp;nbsp; &amp;nbsp; imkinoyatlari" vertex="1">
+          <mxGeometry height="30" width="380" x="2290" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-70" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;2. Diagramma va jadval ko‘rinishida saqlash&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;3. OCR orqali chek rasmlarini o‘qish.&lt;/span&gt;.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;5.Budjet limiti ogohlantirishlari.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;To‘liq statistika: kunlik, haftalik, oylik, yillik.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Diagramma va grafik ko‘rinishida hisobot (matplotlib/plotly)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Budjet limiti ogohlantirishlari.&lt;/font&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="310" width="380" x="2290" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-71" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;To‘liq statistika: kunlik, haftalik, oylik, yillik.&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Diagramma va grafik ko‘rinishida hisobot (matplotlib/plotly).&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;&lt;br&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;Mahsulotlarni jadvalda saqlash va eksport qilish (CSV/Excel)&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font size=&quot;3&quot;&gt;OCR orqali chek rasmlarini o‘qish va avtomatik qo‘shish.&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;li&gt;&lt;p&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;&lt;font size=&quot;3&quot;&gt;Push bildirishnomalar.&lt;/font&gt;&lt;/span&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;Budjet limiti ogohlantirishlari.&lt;/font&gt;&lt;p&gt;&lt;/p&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;Kategoriya bo‘yicha tahlil (oziq-ovqat, transport, o‘yin-kulgi)&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;.&lt;/font&gt;&lt;/li&gt;&lt;li&gt;&lt;font size=&quot;3&quot;&gt;Avtomatik yillik hisobot PDF ko‘rinishida.&lt;/font&gt;&lt;/li&gt;&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="370" width="450" x="2270" y="460" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-72" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="6 oy&amp;nbsp; va 12 oy&amp;nbsp;imkoniyatlar." vertex="1">
+          <mxGeometry height="30" width="450" x="2270" y="430" as="geometry" />
+        </mxCell>
+        <mxCell id="RVB-Xg5cPlWT1-r2NpkX-74" edge="1" parent="1" source="RVB-Xg5cPlWT1-r2NpkX-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.002;entryY=0.642;entryDx=0;entryDy=0;entryPerimeter=0;" target="RVB-Xg5cPlWT1-r2NpkX-70">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
