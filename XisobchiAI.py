@@ -54,9 +54,10 @@ except ImportError:
 # Ishlab chiqarishda faqat .env dan foydalaning!
 TOKEN     = os.getenv("TELEGRAM_TOKEN", "8904677991:AAGc7f2UyR5alJPy5mnfnBKDoo3vxz5xOgw")
 
-DATA_FILE  = "expenses.json"  # Xarajatlar saqlanadigan fayl
-USERS_FILE = "users.json"     # Foydalanuvchi profillari saqlanadigan fayl
-FREE_LIMIT = 100              # Bepul tarifda bir foydalanuvchi saqlashi mumkin bo'lgan maks. mahsulot soni
+DATA_FILE     = "expenses.json"          # Xarajatlar saqlanadigan fayl
+USERS_FILE    = "users.json"             # Foydalanuvchi profillari saqlanadigan fayl
+PAYMENTS_FILE = "pending_payments.json"  # Kutilayotgan to'lovlar (diskda saqlanadi, restartda yo'qolmaydi)
+FREE_LIMIT    = 100                      # Bepul tarifda bir foydalanuvchi saqlashi mumkin bo'lgan maks. mahsulot soni
 
 # Har bir tarif uchun meta-ma'lumot: necha kun amal qiladi va qanday ko'rsatiladi.
 # Kalitlar: "trial" | "month3" | "month6" | "month12"
@@ -925,9 +926,66 @@ def admin_overall_stats() -> str:
         f"💰 Barcha xarajatlar jami: <b>{fmt(total_exp)} so'm</b>"
     )
 
-# Kutilayotgan to'lov so'rovlari: {foydalanuvchi_uid: tarif_kodi}
-# Bot qayta ishga tushganda tozalanadi (in-memory).
-_pending_payments: dict[int, str] = {}
+# ════════════════════════════════════════════════════════════════════
+#  PENDING TO'LOVLAR — pending_payments.json
+#
+#  Struktura:
+#  {
+#    "123456789": {
+#      "tier":     "month3",            # tarif kodi
+#      "label":    "3 oy — 100 so'm",   # ko'rinishli nom
+#      "name":     "Ali",               # foydalanuvchi ismi
+#      "username": "@ali_uz",           # Telegram username (yo'q bo'lsa "—")
+#      "lang":     "uz",                # til kodi
+#      "date":     "2025-06-10T14:30"   # so'rov sanasi
+#    }
+#  }
+#
+#  Diagrammada ko'rsatilgan:
+#    Foydalanuvchi to'laydi → status = pending
+#    Admin pending ro'yxatni ko'radi → har birini alohida tanlaydi
+#    Admin tasdiqlaydi → status = aktif, foydalanuvchiga xabar ketadi
+#    Admin rad etadi  → foydalanuvchiga xabar ketadi
+# ════════════════════════════════════════════════════════════════════
+
+def _load_pending() -> dict:
+    """pending_payments.json ni diskdan o'qiydi.
+    Kalit — uid (int), qiymat — to'lov ma'lumotlari (dict).
+
+    Migratsiya: eski versiyada qiymat string (faqat tier) edi.
+    Agar string topilsa, dict formatiga o'tkazib olamiz.
+    """
+    if os.path.exists(PAYMENTS_FILE):
+        try:
+            with open(PAYMENTS_FILE, "r", encoding="utf-8") as f:
+                raw = json.load(f)
+            result = {}
+            for k, v in raw.items():
+                uid_int = int(k)
+                if isinstance(v, str):
+                    # Eski format: {"123": "month3"} → yangi dict formatga
+                    label = TARIFF_META.get(v, {}).get("label_uz", v)
+                    result[uid_int] = {
+                        "tier": v, "label": label,
+                        "name": "—", "username": "—", "lang": "uz", "date": "—",
+                    }
+                else:
+                    result[uid_int] = v
+            return result
+        except Exception:
+            pass
+    return {}
+
+def _save_pending() -> None:
+    """Kutilayotgan to'lovlarni diskka yozadi.
+    Kalit int → str (JSON faqat string kalit qabul qiladi)."""
+    with open(PAYMENTS_FILE, "w", encoding="utf-8") as f:
+        json.dump({str(k): v for k, v in _pending_payments.items()},
+                  f, ensure_ascii=False, indent=2)
+
+# Bot ishga tushganda pending to'lovlarni diskdan yuklaymiz.
+# Eski versiyada in-memory edi — endi restartda yo'qolmaydi.
+_pending_payments: dict[int, dict] = _load_pending()
 
 
 # ════════════════════════════════════════════════════════════════════
@@ -1055,11 +1113,20 @@ def handle_tariff_chosen(call: types.CallbackQuery, tariff: str) -> None:
             f"{tr(lang, 'desc_free')}\n\nShu orada bepul tarifdan foydalanishingiz mumkin.",
             parse_mode="HTML", reply_markup=main_keyboard(uid),
         )
-        # Kutilayotgan to'lovlar ro'yxatiga qo'shamiz
-        _pending_payments[uid] = tariff
-        # Adminlarga tez faollashtirish tugmasi bilan bildirishnoma
+        # Kutilayotgan to'lovlar ro'yxatiga qo'shamiz (diskda saqlaymiz)
         user  = get_user(uid)
         uname = f"@{call.from_user.username}" if call.from_user.username else "—"
+        _pending_payments[uid] = {
+            "tier":     tariff,
+            "label":    label,
+            "name":     user["name"] if user else "—",
+            "username": uname,
+            "lang":     lang,
+            "date":     datetime.now().strftime("%d.%m.%Y %H:%M"),
+        }
+        _save_pending()  # Diskka yozamiz — restart bo'lsa ham saqlanadi
+
+        # Adminlarga tez faollashtirish tugmasi bilan bildirishnoma
         notify_admins(
             f"💳 <b>To'lov so'rovi!</b>\n\n"
             f"👤 Ism: <b>{clean(user['name']) if user else '—'}</b>\n"
@@ -1273,6 +1340,7 @@ def on_callback(call: types.CallbackQuery) -> None:
             lang_u    = lang_of(target_uid)
             label     = TARIFF_META[tier].get(f"label_{lang_u}", tier)
             _pending_payments.pop(target_uid, None)
+            _save_pending()  # Diskdan o'chiramiz
             # Foydalanuvchiga faollashtirish xabari
             try:
                 bot.send_message(
@@ -1301,6 +1369,7 @@ def on_callback(call: types.CallbackQuery) -> None:
             # Format: "adm_reject:{target_uid}"
             target_uid = int(data.split(":")[1])
             _pending_payments.pop(target_uid, None)
+            _save_pending()  # Diskdan o'chiramiz
             bot.edit_message_text(
                 f"❌ To'lov rad etildi — ID: <code>{target_uid}</code>",
                 call.message.chat.id, call.message.message_id,
@@ -1371,21 +1440,64 @@ def on_callback(call: types.CallbackQuery) -> None:
             return
 
         if data == "adm:payments":
-            # Kutilayotgan to'lov so'rovlari ro'yxati
+            # Kutilayotgan to'lov so'rovlari ro'yxati.
+            # Har bir to'lov uchun "Ko'rish" tugmasi — bosib to'liq detal ko'rish mumkin.
             if not _pending_payments:
                 bot.answer_callback_query(call.id, "Kutilayotgan to'lov yo'q.", show_alert=True)
                 return
+            kb = types.InlineKeyboardMarkup(row_width=1)
             lines = []
-            for puid, ptier in _pending_payments.items():
-                u     = get_user(puid)
-                label = TARIFF_META.get(ptier, {}).get("label_uz", ptier)
-                name  = clean(u["name"]) if u else str(puid)
-                lines.append(f"👤 <b>{name}</b> — <code>{puid}</code> → {label}")
-            kb = types.InlineKeyboardMarkup()
+            for puid, pdata in _pending_payments.items():
+                # pdata — dict: tier, label, name, username, lang, date
+                name  = pdata.get("name", str(puid))
+                label = pdata.get("label", pdata.get("tier", "—"))
+                date  = pdata.get("date", "—")
+                lines.append(f"👤 <b>{clean(name)}</b> | <code>{puid}</code>\n"
+                              f"   📦 {label} | 📅 {date}")
+                # Har bir to'lov uchun alohida "Ko'rish & Tasdiqlash" tugmasi
+                kb.add(types.InlineKeyboardButton(
+                    f"🔍 {clean(name)} — {label}",
+                    callback_data=f"adm_view:{puid}"
+                ))
             kb.add(types.InlineKeyboardButton("⬅️ Orqaga", callback_data="adm:back"))
             bot.edit_message_text(
                 f"💳 <b>Kutilayotgan to'lovlar ({len(_pending_payments)} ta):</b>\n\n"
-                + "\n".join(lines),
+                + "\n\n".join(lines),
+                call.message.chat.id, call.message.message_id,
+                parse_mode="HTML", reply_markup=kb,
+            )
+            return
+
+        if data.startswith("adm_view:"):
+            # Bitta to'lovning to'liq detallari: ID, ism, username, tarif, sana.
+            # Admin shu ekrandan tasdiqlash yoki rad etishi mumkin.
+            target_uid = int(data.split(":")[1])
+            pdata = _pending_payments.get(target_uid)
+            if not pdata:
+                bot.answer_callback_query(call.id, "Bu to'lov topilmadi (allaqachon qayta ishlangan).", show_alert=True)
+                return
+            tier  = pdata.get("tier", "—")
+            label = pdata.get("label", tier)
+            name  = pdata.get("name", "—")
+            uname = pdata.get("username", "—")
+            lang_ = pdata.get("lang", "—").upper()
+            date  = pdata.get("date", "—")
+            # Diagrammadagi "Tolovni tanlaydi — ID, ism, tarif, summa ko'radi" bosqichi
+            kb = types.InlineKeyboardMarkup(row_width=2)
+            kb.add(
+                types.InlineKeyboardButton(f"✅ Faollashtirish", callback_data=f"adm_act:{target_uid}:{tier}"),
+                types.InlineKeyboardButton("❌ Rad etish",       callback_data=f"adm_reject:{target_uid}"),
+            )
+            kb.add(types.InlineKeyboardButton("⬅️ Ro'yxatga qaytish", callback_data="adm:payments"))
+            bot.edit_message_text(
+                f"🔍 <b>To'lov detallari</b>\n\n"
+                f"👤 Ism: <b>{clean(name)}</b>\n"
+                f"🆔 ID: <code>{target_uid}</code>\n"
+                f"📱 Username: {uname}\n"
+                f"🌐 Til: {lang_}\n"
+                f"📦 Tarif: <b>{label}</b>\n"
+                f"📅 So'rov sanasi: {date}\n\n"
+                f"⏳ Status: <b>Kutilmoqda</b>",
                 call.message.chat.id, call.message.message_id,
                 parse_mode="HTML", reply_markup=kb,
             )
