@@ -1,1 +1,1 @@
-worker: python XisobchiAI.py
+worker: python main.py

@@ -1,0 +1,11 @@
+.git
+.env
+__pycache__
+*.pyc
+*.pyo
+*.jpg
+*.png
+*.pdf
+users.json
+expenses.json
+pending_payments.json
